@@ -35,7 +35,14 @@ Solución final
 | 01 | Arrays / Hash Maps | [Two Sum](01-arrays-hashmaps/two-sum/README.md) | Practicado | Hash Map |
 | 02 | Stack | [Valid Parentheses](02-stack/valid-parentheses/inicio.md) | En estudio | Stack |
 
+## Lecciones teóricas
+
+| Tema | Lección | Ejercicio relacionado |
+|------|---------|-----------------------|
+| Hash Map | [Hash Map](01-arrays-hashmaps/hashmap.md) | [Two Sum](01-arrays-hashmaps/two-sum/README.md) |
+| Stack | [Stack](02-stack/stack.md) | [Valid Parentheses](02-stack/valid-parentheses/inicio.md) |
+
 ## Organización
 
-* [01 - Arrays / Hash Maps](01-arrays-hashmaps/two-sum/README.md)
-* [02 - Stack](02-stack/valid-parentheses/inicio.md)
+* [01 - Arrays / Hash Maps](01-arrays-hashmaps/README.md)
+* [02 - Stack](02-stack/README.md)

@@ -33,7 +33,9 @@ Entrada:
 
 Ejercicios actuales:
 
+* [Hash Map](mentoria/01-arrays-hashmaps/hashmap.md)
 * [Two Sum](mentoria/01-arrays-hashmaps/two-sum/README.md)
+* [Stack](mentoria/02-stack/stack.md)
 * [Valid Parentheses](mentoria/02-stack/valid-parentheses/inicio.md)
 
 ### CyberSecurity

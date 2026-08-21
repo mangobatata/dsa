@@ -14,8 +14,8 @@ Los estados usados son:
 | Orden | Tema | Estado | Evidencia |
 |------:|------|--------|-----------|
 | 1 | Arrays | Practicado | [Two Sum](mentoria/01-arrays-hashmaps/two-sum/README.md) |
-| 2 | Hash Maps | Practicado | [Two Sum](mentoria/01-arrays-hashmaps/two-sum/README.md) |
-| 3 | Stack | En estudio | [Valid Parentheses](mentoria/02-stack/valid-parentheses/inicio.md) |
+| 2 | Hash Maps | En estudio | [Hash Map](mentoria/01-arrays-hashmaps/hashmap.md) / [Two Sum](mentoria/01-arrays-hashmaps/two-sum/README.md) |
+| 3 | Stack | En estudio | [Stack](mentoria/02-stack/stack.md) / [Valid Parentheses](mentoria/02-stack/valid-parentheses/inicio.md) |
 | 4 | Queue | Pendiente | - |
 | 5 | Linked List | Pendiente | - |
 | 6 | Two Pointers | Pendiente | - |

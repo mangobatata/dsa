@@ -6,8 +6,8 @@ Seguimiento simple del aprendizaje documentado en el repositorio.
 
 | Tema | Ejercicio | Estado | Lenguaje | Patrón |
 |------|-----------|--------|----------|--------|
-| Arrays / Hash Map | [Two Sum](../mentoria/01-arrays-hashmaps/two-sum/README.md) | Practicado | TypeScript / Python | Hash Map |
-| Stack | [Valid Parentheses](../mentoria/02-stack/valid-parentheses/inicio.md) | En estudio | - | Stack |
+| Arrays / Hash Map | [Hash Map](../mentoria/01-arrays-hashmaps/hashmap.md) / [Two Sum](../mentoria/01-arrays-hashmaps/two-sum/README.md) | En estudio | TypeScript / Python | Hash Map |
+| Stack | [Stack](../mentoria/02-stack/stack.md) / [Valid Parentheses](../mentoria/02-stack/valid-parentheses/inicio.md) | En estudio | - | Stack |
 
 ## CyberSecurity
 
