@@ -1,9 +1,14 @@
 def twoSum(nums, target):
-    nums_dict = {}
-    for num in nums:
+    hash_map = {}
+    for index, num in enumerate(nums):
         complement = target - num
-        if complement in nums_dict:
-            return [nums_dict[complement], nums.index(num)]
-        nums_dict[num] = nums.index(num)
-
+        if complement in hash_map:
+            return [hash_map[complement], index]
+        
+        hash_map[num] = index
+ 
+      
     return []
+
+
+print(twoSum([11, 5, 7, 4, 78, 2], 9))
