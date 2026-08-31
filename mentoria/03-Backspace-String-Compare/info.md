@@ -80,7 +80,7 @@ No pienses todavía en `push`, `pop`, arrays ni código. Explicámelo como si el
 
 Necesito recordar que cuando aparece # el último caracter que se guardo se debe eliminar
 
-### Mentor 
+### Mentor
 
 Correcto. Y fijate en las palabras que acabás de usar:
 
@@ -150,24 +150,26 @@ d
 
 Ahí veremos si reconociste el patrón por vos mismo.
 
-### Mi respuesta 
+### Mi respuesta
 
 Input: "abc##d"
 
 a -> guardo
-b -> guardo 
-c -> guardo 
-# -> borro c 
+b -> guardo
+c -> guardo
+
+# -> borro c
 
 queda ab#d
 
-a -> sigue 
-b -> sigue 
-# -> borro b 
+a -> sigue
+b -> sigue
+
+# -> borro b
 
 queda [a,d]
 
-### Mentor 
+### Mentor
 
 Sí, llegaste al resultado correcto: al final queda:
 
@@ -219,11 +221,11 @@ Pensá en esta frase:
 
 > **“El último que entra es el primero que sale.”**
 
-### Mi respuesta 
+### Mi respuesta
 
 Esto es Stack, el último que entra es el primero que sale
 
-### Mentor 
+### Mentor
 
 Sí. **Lo reconociste vos solo**, y eso es exactamente lo que queríamos comprobar.
 
@@ -263,12 +265,11 @@ Entonces la pregunta ahora es:
 
 Respondeme con tus palabras, sin código todavía.
 
-
-### Mi respuesta 
+### Mi respuesta
 
 Necesito comparar los elementos del primer array con los elementos del segundo array
 
-### Mentor 
+### Mentor
 
 Correcto. Una vez que procesamos ambos strings, tenemos dos resultados finales:
 
@@ -344,11 +345,11 @@ Apareció `#`, pero **no hay ningún carácter guardado para eliminar**.
 
 Pensalo desde el significado del problema, no desde cómo funciona `pop()`.
 
-### Mi respuesta 
+### Mi respuesta
 
 si aparece eso no hay nada para eliminar entonces podriamos llegar a finalizar el algoritmo
 
-### Mentor 
+### Mentor
 
 Acá hay un matiz importante: **no conviene finalizar todo el algoritmo**.
 
@@ -409,18 +410,22 @@ s = "ab##c#d"
 
 Procesalo vos usando la Stack y decime cómo va quedando después de cada carácter.
 
-### Mi respuesta 
+### Mi respuesta
 
 s = "ab##c#d"
 
 a -> guardo [a]
 b -> guardo [b]
-# -> b elimino 
-# -> a elimino 
-c -> guardo [c]
-# -> elimino c 
-d -> guardo [d]
 
+# -> b elimino
+
+# -> a elimino
+
+c -> guardo [c]
+
+# -> elimino c
+
+d -> guardo [d]
 
 ### Mentor
 
@@ -477,4 +482,249 @@ al terminar:
 
 No pienses todavía en Python/TypeScript ni en `push/pop`. Quiero ver si podés construir el pseudocódigo prácticamente solo esta vez.
 
+### Mi respuesta
 
+crear memoria
+recorrer string
+
+si carácter es normal:
+guardo el carácter en un array
+
+si carácter es "#":
+voy a borrar el ultimo caracter guardo en el array
+
+al terminar:
+devuelvo el array con elementos o vacio
+
+### Mentor
+
+Muy bien. Tu pseudocódigo ya tiene la estructura correcta. Hay **un solo agujero lógico** que quiero que detectemos antes de escribir código.
+
+Tenés:
+
+```text
+crear memoria
+recorrer string
+
+si carácter es normal:
+    guardo el carácter en un array
+
+si carácter es "#":
+    borro el último carácter guardado
+
+al terminar:
+    devuelvo el array
+```
+
+Pero recordá este caso:
+
+```text
+s = "##a"
+```
+
+Empezamos:
+
+```text
+memoria = []
+
+primer carácter = "#"
+```
+
+Tu pseudocódigo dice:
+
+```text
+borro el último carácter guardado
+```
+
+pero:
+
+```text
+[]
+↑
+no existe último carácter
+```
+
+Así que necesitamos agregar la condición que descubrimos anteriormente:
+
+```text
+si carácter es "#":
+    si hay elementos guardados:
+        borrar el último
+    si no hay elementos:
+        continuar
+```
+
+Con eso, tu pseudocódigo para **procesar un string** queda completo.
+
+Ahora quiero que vos lo lleves a código. Elegí **Python o TypeScript** —el que prefieras— e intentá escribir una función que reciba:
+
+```text
+"ab##c#d"
+```
+
+y devuelva:
+
+```text
+["d"]
+```
+
+Recordatorio mínimo de Stack, por si elegís Python:
+
+```python
+stack = []
+stack.append(...)
+stack.pop()
+```
+
+No te doy más estructura. Quiero ver cuánto podés traducir solo esta vez.
+
+### Mi respuesta sería
+
+```
+crear memoria
+recorrer string
+
+si carácter es normal:
+    guardo el carácter en un array
+
+si carácter es "#":
+    si hay elementos guardados:
+        borrar el último
+    si no hay elementos:
+        continuar
+
+al terminar:
+    devuelvo el array con elementos o vacio
+```
+
+```ts
+// "ab##c#d"
+function backspaceStringCompare(s: string) {
+  const stack = [];
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] !== "#") {
+      stack.push(s[i]);
+    }
+
+    if (s[i] === "#" && stack.length > 0) {
+      stack.pop();
+    }
+  }
+
+  return stack;
+}
+```
+### Mentor 
+
+Sí, esta función está bien para procesar un solo string y aplicar los # como backspace.
+
+Con:
+
+backspaceStringCompare("ab##c#d")
+
+la Stack evoluciona así:
+
+a → [a]
+b → [a, b]
+# → [a]
+# → []
+c → [c]
+# → []
+d → [d]
+
+y devolvés:
+
+["d"]
+
+fijate en algo importante: esta vez prácticamente construiste vos solo el algoritmo:
+
+normal → push
+# con elementos → pop
+# sin elementos → no hacer nada
+
+Eso confirma que ya estás reconociendo Stack, no solamente repitiendo Valid Parentheses.
+
+Ahora falta la segunda mitad del ejercicio original.
+
+Tenemos:
+
+s = "ab#c"
+t = "ad#c"
+
+Tu función ya sabe transformar cada uno:
+
+s → ["a", "c"]
+t → ["a", "c"]
+
+Entonces pensá vos el siguiente diseño:
+
+¿Harías una Stack para s y otra Stack para t, o reutilizarías una función que procese cualquier string y luego compararías ambos resultados?
+
+No escribas código todavía. Decime cuál de esas dos formas te parece más ordenada y por qué.
+
+### Mi respuesta
+haria una funcion que procese cualquier string y lugo comparo con ambos result
+
+
+### Mentor
+
+Sí, esa es la forma más ordenada.
+
+Tu idea sería:
+
+```text
+función procesar(string):
+    aplica la lógica de #
+    devuelve el resultado final
+```
+
+Después:
+
+```text
+resultadoS = procesar(s)
+resultadoT = procesar(t)
+
+comparar resultadoS con resultadoT
+```
+
+Eso evita duplicar lógica y separa bien responsabilidades.
+
+Ahora viene un detalle importante de JavaScript/TypeScript: si tu función devuelve arrays como:
+
+```ts
+["a", "c"]
+```
+
+y comparás:
+
+```ts
+["a", "c"] === ["a", "c"]
+```
+
+eso da `false`, porque los arrays se comparan por referencia, no por contenido.
+
+Entonces la siguiente pregunta es:
+
+> ¿Cómo convertirías ambos arrays a algo que sí podamos comparar fácilmente por valor?
+
+Pista: podrías transformar:
+
+```text
+["a", "c"]
+```
+
+en:
+
+```text
+"ac"
+```
+
+¿Qué método de JavaScript conocés para unir los elementos de un array en un string?
+
+
+### Mi respuesta
+
+
+
+### Mentor
