@@ -2,7 +2,7 @@ class Solution:
     def isValid(self, s: str) -> bool:
         stack = []
 
-        for i, char in enumerate(s):
+        for _, char in enumerate(s):
             
             last_open = stack[len(stack) - 1] if stack else None
             if char == "(" or char == "[" or char == "{":

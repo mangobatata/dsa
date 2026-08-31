@@ -1,3 +1,5 @@
+package main
+
 func isValid(s string) bool {
 	var stack []rune
 
