@@ -12,7 +12,7 @@
 //   return false;
 // }
 
-function containsDuplicate(nums: number[]) {
+function containsDuplicate(nums: number[]): boolean {
   const counts: { [key: number]: number } = {};
 
   for (let i = 0; i < nums.length; i++) {
@@ -28,3 +28,4 @@ function containsDuplicate(nums: number[]) {
   }
   return false;
 }
+// 29 minutos, 12 segundos
