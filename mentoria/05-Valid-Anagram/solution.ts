@@ -62,3 +62,15 @@ function isAnagram(s: string, t: string): boolean {
 //             devolver false
 
 //     devolver true
+
+// si las longitudes son diferentes:
+//     false
+
+// contar frecuencias de s
+// contar frecuencias de t
+
+// por cada letra de s:
+//     si su frecuencia en s != frecuencia en t:
+//         false
+
+// true
