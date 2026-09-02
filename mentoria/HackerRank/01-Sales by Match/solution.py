@@ -7,9 +7,9 @@ def sockMerchant(n, ar):
             memo[value] += 1
         else:
             memo[value] = 1
-            
+
     for v in memo:
         res = memo[v] // 2
-        totalPares += res 
+        totalPares += res
 
     return totalPares
