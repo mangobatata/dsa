@@ -211,6 +211,8 @@ Si encontramos un número nuevo:
 
 ```ts
 function removeDuplicates(nums: number[]): number {
+  if (nums.length === 0) return 0;
+
   let k = 1;
 
   for (let i = 1; i < nums.length; i++) {
@@ -223,6 +225,9 @@ function removeDuplicates(nums: number[]): number {
   return k;
 }
 ```
+
+> El `if (nums.length === 0) return 0;` lo descubrimos trazando el caso vacío:
+> con `[]` el `for` no entra y `k` valdría 1, pero la respuesta correcta es 0.
 
 ## Traducción del código a palabras
 
@@ -258,3 +263,47 @@ Un duplicado no mueve k.
 Un número nuevo se escribe y hace avanzar k.
 Al final, k es la respuesta.
 ```
+
+## Traza exacta de [1, 1, 2]
+
+Inicio: `nums = [1, 1, 2]`, `k = 1`.
+
+Iteración 1, `i = 1`:
+
+```text
+nums[i] = nums[1] = 1
+nums[k-1] = nums[0] = 1
+1 === 1 → duplicado → k se queda en 1
+```
+
+Iteración 2, `i = 2`:
+
+```text
+nums[i] = nums[2] = 2
+nums[k-1] = nums[0] = 1
+2 !== 1 → nuevo → nums[1] = 2, k pasa a 2
+array queda [1, 2, 2]
+```
+
+Fin: `return 2`. Los primeros 2 son `[1, 2]`.
+
+## Ejemplo para un niño de 7 años
+
+Imaginá crayones en fila, ordenados por color:
+
+```text
+[rojo, rojo, azul]
+```
+
+Ya te quedás con el primer rojo. Tu dedo `k` dice "el próximo lugar libre es el 1".
+
+- Mirás el segundo rojo: ¿es igual al último color que guardaste? Sí → lo saltás.
+- Mirás el azul: ¿es distinto al último color que guardaste? Sí → lo ponés donde dice `k`.
+
+Queda:
+
+```text
+[rojo, azul, ...]
+```
+
+Y contás con los dedos: 2 colores distintos.

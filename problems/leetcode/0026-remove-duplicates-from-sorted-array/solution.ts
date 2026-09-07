@@ -1,4 +1,6 @@
 function removeDuplicates(nums: number[]): number {
+  if (nums.length === 0) return 0;
+  
   let k = 1;
   for (let i = 1; i < nums.length; i++) {
     if (nums[i] !== nums[k - 1]) {
@@ -25,6 +27,3 @@ function removeDuplicates(nums: number[]): number {
 //     devolver k
 
 // i es el explorador, recorre el array para encontrar números duplicados. k es el escritor, se detiene si i encuentra un duplicado, no avanza y no sobreescribe pero si i encuentra un numero nuevo, recien ahi k avanza y sobre escribe
-
-
-
