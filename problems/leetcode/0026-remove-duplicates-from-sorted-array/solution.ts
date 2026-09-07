@@ -23,3 +23,8 @@ function removeDuplicates(nums: number[]): number {
 //     avanzar k
 // al terminar:
 //     devolver k
+
+// i es el explorador, recorre el array para encontrar números duplicados. k es el escritor, se detiene si i encuentra un duplicado, no avanza y no sobreescribe pero si i encuentra un numero nuevo, recien ahi k avanza y sobre escribe
+
+
+
