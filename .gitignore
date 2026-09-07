@@ -1,0 +1,14 @@
+# Editor and OS
+.DS_Store
+Thumbs.db
+.ruby-lsp/
+
+# Python
+__pycache__/
+*.pyc
+
+# Environment and builds
+node_modules/
+dist/
+build/
+*.exe
