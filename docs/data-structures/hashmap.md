@@ -839,3 +839,329 @@ Cuando esas preguntas tengan sentido, recién ahí conviene volver a:
 * [Contains Duplicate](../../problems/leetcode/0217-contains-duplicate/README.md)
 * [Valid Anagram](../../problems/leetcode/0242-valid-anagram/README.md)
 * [Sales by Match](../../problems/hackerrank/sales-by-match/README.md)
+
+## Explicación simple con dibujos
+
+Un `key -> value` es una cajita con nombre.
+
+### 1. Cajitas con nombre vs fila por número
+
+Imagina dos formas de guardar tus juguetes.
+
+**Forma 1: Fila por número (esto es un Array)**
+
+Tienes que contar del 0, 1, 2... para encontrar algo.
+
+```text
+FILA POR NÚMERO
++-----+-----+-----+
+|  0  |  1  |  2  |
++-----+-----+-----+
+| oso | tren| pato|
++-----+-----+-----+
+
+Para encontrar el pato, tienes que contar:
+0... 1... 2... ¡Acá está!
+```
+
+**Forma 2: Cajitas con cartel y nombre (esto es un Hash Map)**
+
+Cada cajita tiene un cartel con un nombre. ¡No hay que contar! Vas directo al nombre.
+
+```text
+CAJITAS CON NOMBRE
+
+  _________     _________     _________
+ |         |   |         |   |         |
+ |  CARTEL |   |  CARTEL |   |  CARTEL |
+ | "OSO"   |   | "TREN"  |   | "PATO"  |
+ |_________|   |_________|   |_________|
+ |         |   |         |   |         |
+ |  (oso)  |   | (tren)  |   | (pato)  |
+ |  🧸     |   |  🚂     |   |  🦆     |
+ |_________|   |_________|   |_________|
+
+  key       value
+ "OSO"  ->  🧸
+ "TREN" ->  🚂
+ "PATO" ->  🦆
+```
+
+¿Ves? La `key` es el **cartel con el nombre**. El `value` es **lo que hay adentro de la caja**.
+
+```text
+key (cartel)  --->  value (lo de adentro)
+
+"OSO"         --->  🧸
+```
+
+### 2. Ejemplo: las mochilas de la escuela
+
+En tu escuela, cada niño tiene su mochila. ¡Pero todas las mochilas se parecen! ¿Cómo sabes cuál es la tuya?
+
+¡Fácil! La maestra le pega un papel con tu nombre a cada mochila.
+
+```text
+  PERCHERO DE LA ESCUELA
+
+  ___     ___     ___
+ |___|   |___|   |___|
+ |ANA|   | JUAN| |LUIS|
+ +---+   +-----+ +----+
+ |🎒 |   | 🎒  | | 🎒 |
+ |roja|  |azul | |verde|
+ +----+  +-----+ +----+
+
+ "ANA"  -> mochila roja de Ana
+ "JUAN" -> mochila azul de Juan
+ "LUIS" -> mochila verde de Luis
+```
+
+* No buscas en todas las mochilas una por una.
+* Miras el nombre pegado (`key`).
+* Agarras tu mochila (`value`).
+
+¡Eso es un Hash Map! El nombre pegado te lleva directo a tu cosa.
+
+```text
+"ANA"  -> 🎒 roja
+"JUAN" -> 🎒 azul
+```
+
+Si llega una niña nueva que también se llama "ANA", ¿qué pasa? ¡Le cambiamos la mochila! El cartel "ANA" ahora muestra la mochila nueva. Eso es **actualizar el value**.
+
+```text
+ANTES:  "ANA" -> 🎒 roja
+DESPUÉS: "ANA" -> 🎒 rosa nueva
+```
+
+### 3. Ejemplo: contar figuritas y caramelos
+
+Ahora quieres saber **cuántas** figuritas tienes de cada una. ¡El Hash Map te ayuda a contar!
+
+La idea es:
+
+```text
+elemento -> cantidad
+
+figurita -> cuántas tengo
+```
+
+Mira:
+
+```text
+TUS FIGURITAS EN LA MESA:
+
+🦁 🍬 🦁 🍭 🍬 🦁
+
+Paso 1: veo 🦁 por primera vez.
+  +------+
+  | 🦁   | -> 1
+  +------+
+
+  Dibujo:
+
+  _________ 
+ | CARTEL  |
+ |  "🦁"   |
+ |_________|
+ |    1    |
+ |_________|
+
+Paso 2: veo 🍬 por primera vez.
+  🦁 -> 1
+  🍬 -> 1
+
+Paso 3: ¡veo 🦁 otra vez! Sumo 1.
+  🦁 -> 2  (antes era 1, ahora +1)
+
+  _________
+ |  "🦁"   |
+ |_________|
+ |    2    |  <- ¡creció!
+ |_________|
+
+Al final:
+  🦁 -> 3
+  🍬 -> 2
+  🍭 -> 1
+```
+
+Otro ejemplo con caramelos:
+
+```text
+🍓 -> 5  significa: "el caramelo de frutilla, tengo 5"
+🍋 -> 2  significa: "el caramelo de limón, tengo 2"
+```
+
+¡El nombre del caramelo es la `key` y el número es el `value`!
+
+### 4. Dibujo: buckets como casilleros
+
+Adentro, el Hash Map tiene **casilleros** como en la escuela. Se llaman **buckets**.
+
+Una **función hash** es como un ayudante mágico que mira tu nombre y te dice: "¡tú vas al casillero 2!".
+
+```text
+        ✨ AYUDANTE MÁGICO ✨
+        (hash function)
+
+  "ANA" ---\
+            +---> CASILLERO 2
+  "JUAN" ---/
+            +---> CASILLERO 0
+  "LUIS" --------> CASILLERO 3
+
+
+  LOS CASILLEROS (buckets):
+
+  +----------------------------+
+  | Bucket 0: [JUAN -> 🎒]     |
+  +----------------------------+
+  | Bucket 1: [vacío]          |
+  +----------------------------+
+  | Bucket 2: [ANA -> 🎒]      |
+  +----------------------------+
+  | Bucket 3: [LUIS -> 🎒]     |
+  +----------------------------+
+
+  Dibujo grande:
+
+   ____  ____  ____  ____
+  |    ||    ||    ||    |
+  | 0  || 1  || 2  || 3  |
+  |____||____||____||____|
+  |JUAN||    || ANA||LUIS|
+  | 🎒 ||    || 🎒 || 🎒 |
+  |____||____||____||____|
+```
+
+¿Y si dos amigos van al mismo casillero? ¡Eso se llama **colisión**! Es como si dos mochilas quieren el mismo gancho.
+
+```text
+¡COLISIÓN! ¡Oh no!
+
+  "ANA" --\
+           +--> ¡mismo casillero 2! 😱
+  "PEPE" --/
+
+  Solución: ¡los ponemos en filita uno atrás del otro!
+
+  +-------------------------------+
+  | Bucket 2: [ANA -> 🎒] -> [PEPE -> 🧸] |
+  +-------------------------------+
+
+  Dibujo:
+
+   _________
+  |Bucket 2 |
+  |_________|
+      |
+      v
+   +-------+
+   | ANA 🎒|
+   +-------+
+      |
+      v
+   +-------+
+   |PEPE 🧸|
+   +-------+
+```
+
+Eso se llama **chaining**: hacer una cadenita en el casillero.
+
+### 5. Mini-ejercicios
+
+**Ejercicio 1: Las cajas de lápices**
+
+Tienes esto:
+
+```text
+  ________   ________   ________
+ | "ROJO" | | "AZUL" | | "VERDE"|
+ |________| |________| |________|
+ |   3    | |   1    | |   5    |
+ |________| |________| |________|
+```
+
+Pregunta: Si buscas la key `"VERDE"`, ¿qué value encuentras?
+
+<details>
+<summary>Respuesta</summary>
+
+¡5! Porque `"VERDE" -> 5`.
+
+</details>
+
+**Ejercicio 2: Contar galletitas 🍪**
+
+En tu plato hay: `🍪 🍎 🍪 🍪 🍎`
+
+Completa:
+
+```text
+🍪 -> ?
+🍎 -> ?
+```
+
+Dibujo para ayudarte:
+
+```text
+  _____   _____
+ | "🍪" | | "🍎"| 
+ |_____| |_____|
+ |  ?  | |  ?  |
+ |_____| |_____|
+```
+
+<details>
+<summary>Respuesta</summary>
+
+```text
+🍪 -> 3
+🍎 -> 2
+```
+
+¡Porque hay 3 galletitas y 2 manzanas!
+
+</details>
+
+**Ejercicio 3: ¿Qué cartel usas?**
+
+Quieres guardar el teléfono de tus amigos para llamarlos por su nombre:
+
+```text
+Ana tiene el teléfono 123
+Juan tiene el teléfono 456
+```
+
+¿Qué es la `key` y qué es el `value`?
+
+```text
+  key (?) -> value (?)
+
+  Dibujo:
+
+   _________     _________
+  | CARTEL  |   | CARTEL  |
+  |   ?     |   |   ?     |
+  |_________|   |_________|
+  |    ?    |   |    ?    |
+  |_________|   |_________|
+```
+
+<details>
+<summary>Respuesta</summary>
+
+La `key` es el **nombre** (el cartel). El `value` es el **teléfono** (lo de adentro).
+
+```text
+"ANA"  -> 123
+"JUAN" -> 456
+```
+
+¡Porque buscas por el nombre que conoces!
+
+</details>
+
+Un Hash Map es una pared de cajitas con nombre para encontrar todo rápido.

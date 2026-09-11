@@ -287,7 +287,7 @@ array queda [1, 2, 2]
 
 Fin: `return 2`. Los primeros 2 son `[1, 2]`.
 
-## Ejemplo para un niño de 7 años
+## Ejemplo simple con crayones
 
 Imaginá crayones en fila, ordenados por color:
 
